@@ -1,3 +1,5 @@
+package utils;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,9 +18,11 @@ public class XmlForSave {
     public void saveXmlFile(String fileName, String dispatcherId, String targetId) {
 
         String dir = "D:\\xml\\";
-        File file = new File(dir + fileName + ".xml");
-        //File file = new File("D:\\xml\\test.xml");
-
+        File fileDir = new File(dir + targetId + File.separator);
+        if(!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+        File file = new File(fileDir + "\\" + fileName + ".xml");
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -59,6 +63,7 @@ public class XmlForSave {
         }catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

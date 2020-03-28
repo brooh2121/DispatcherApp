@@ -1,15 +1,23 @@
+import org.omg.CORBA.Environment;
+import performer.PerformerThreadFactory;
+import performer.Performer;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 public class main {
 
     public static void main (String [] args) {
-        //ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+
+        PerformerThreadFactory performerThreadFactory = new PerformerThreadFactory();
         Performer performer = new Performer();
-        performer.start();
-        System.out.println(Thread.currentThread().getName());
+        ExecutorService executorService = Executors.newFixedThreadPool(5,performerThreadFactory);
+        for (int i = 0; i < 200; i++) {
+            executorService.execute(performer);
+        }
+        executorService.shutdown();
     }
 
 
